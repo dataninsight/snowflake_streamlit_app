@@ -47,7 +47,4 @@ streamlit.dataframe(my_data_row)
 
 fruit_selected = streamlit.text_input('What fruit would you like to add?','jackfruit')
 streamlit.write('The user entered ', fruit_selected)
-
-fruityvice_response = requests.put("https://fruityvice.com/api/fruit/"+fruit_selected)
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-streamlit.dataframe(fruityvice_normalized)
+response = requests.put("https://fruityvice.com/api/fruit/", json=fruit_selected)
