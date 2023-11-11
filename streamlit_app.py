@@ -40,6 +40,14 @@ streamlit.dataframe(fruityvice_normalized)
 #streamlit.text(my_data_row)
 
 my_cur.execute("SELECT * FROM pc_rivery_db.public.fruit_load_list")
-my_data_row = my_cur.fetchone()
+#my_data_row = my_cur.fetchone()
+my_data_row = my_cur.fetchall()
 streamlit.header("The Fruit Load List contains:")
 streamlit.dataframe(my_data_row)
+
+fruit_selected = streamlit.text_input('What fruit would you like to add?','jackfruit')
+streamlit.write('The user entered ', fruit_selected)
+
+fruityvice_response = requests.put("https://fruityvice.com/api/fruit/"+fruit_selected)
+fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+streamlit.dataframe(fruityvice_normalized)
